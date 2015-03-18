@@ -18,4 +18,4 @@ Completed user stories:
 Walkthrough of all user stories:
 
 
-![alt tag](https://github.com/srivats666/MyTodoApp/todoApp.gif)
+![alt tag](https://github.com/srivats666/MyTodoApp/blob/master/todoApp.gif)
