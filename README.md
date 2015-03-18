@@ -16,3 +16,6 @@ Completed user stories:
  Optional: Used string.xml to store 'edit item below' label value
 
 Walkthrough of all user stories:
+
+
+![alt tag](https://github.com/srivats666/MyTodoApp/todoApp.gif)

@@ -23,6 +23,7 @@ public class EditItemActivity extends ActionBarActivity {
 
         EditText etNewItem = (EditText)findViewById(R.id.etItem);
         etNewItem.setText(item);
+        etNewItem.setSelection(item.length());
 
     }
 
