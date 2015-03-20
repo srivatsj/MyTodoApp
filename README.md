@@ -23,6 +23,8 @@ Completed user stories:
  
  Optional: Add support for selecting the priority of each todo item (and display in listview item)
  
+ Optional: Added date picker for due dates and sorted list based on due dates and display in listview item
+ 
 
 Walkthrough of all user stories:
 
