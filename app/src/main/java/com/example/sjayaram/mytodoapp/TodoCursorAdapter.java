@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TodoCursorAdapter extends CursorAdapter {
     public TodoCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
@@ -31,10 +35,15 @@ public class TodoCursorAdapter extends CursorAdapter {
 
         // Extract properties from cursor
         String body = cursor.getString(cursor.getColumnIndexOrThrow("Name"));
-        int priority = cursor.getInt(cursor.getColumnIndexOrThrow("Priority"));
+        //int priority = cursor.getInt(cursor.getColumnIndexOrThrow("Priority"));
+
+        Date d = new Date(cursor.getLong(cursor.getColumnIndexOrThrow("DueDate")));
+
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+        String date = DATE_FORMAT.format(d);
 
         // Populate fields with extracted properties
         tvItemName.setText(body);
-        tvItemPriority.setText(String.valueOf(priority));
+        tvItemPriority.setText(date);
     }
 }

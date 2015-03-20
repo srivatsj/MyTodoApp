@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.example.sjayaram.mytodoapp.Models.Item;
 
+import java.util.Date;
+
 
 public class MainActivity extends ActionBarActivity implements AddEditItemDialog.AddEditNameDialogListener {
 
@@ -86,18 +88,20 @@ public class MainActivity extends ActionBarActivity implements AddEditItemDialog
     }
 
     @Override
-    public void onFinishAddEditDialog(String itemName, String priority) {
+    public void onFinishAddEditDialog(String itemName, String priority, Date date) {
         if(selectedItem==null)
         {
             Item newItem = new Item();
             newItem.name = itemName;
             newItem.priority = priority;
+            newItem.dueDate = date;
             newItem.save();
         }
         else
         {
             selectedItem.name =  itemName;
             selectedItem.priority = priority;
+            selectedItem.dueDate = date;
             selectedItem.save();
         }
 
