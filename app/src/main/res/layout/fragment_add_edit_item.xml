@@ -1,0 +1,37 @@
+<!-- fragment_edit_name.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_name"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_gravity="center" android:orientation="vertical"  >
+
+    <TextView
+        android:id="@+id/lbl_todo" android:text="Todo"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/tvItemName"
+        android:layout_width="match_parent"  android:layout_height="wrap_content"
+        android:inputType="text"
+        android:imeOptions="actionDone" />
+
+    <TextView
+        android:id="@+id/lbl_todo_priority" android:text="Priority"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/tvItemPriority"
+        android:layout_width="match_parent"  android:layout_height="wrap_content"
+        android:inputType="text"
+        android:imeOptions="actionDone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/btSave"
+        android:layout_below="@+id/etItem"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="32dp" />
+
+</LinearLayout>

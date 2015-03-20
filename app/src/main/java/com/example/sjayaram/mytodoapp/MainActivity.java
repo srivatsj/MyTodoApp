@@ -1,40 +1,35 @@
 package com.example.sjayaram.mytodoapp;
 
-import android.content.Intent;
+import android.database.Cursor;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import com.example.sjayaram.mytodoapp.Models.Item;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements AddEditItemDialog.AddEditNameDialogListener {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> itemsAdapter;
+    private TodoCursorAdapter todoAdapter;
     private ListView lvItems;
-    private final int REQUEST_CODE = 20;
+    private Item selectedItem;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        readItems();
         lvItems = (ListView)findViewById(R.id.lvItems);
-        itemsAdapter =  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-        lvItems.setAdapter(itemsAdapter);
+
+        Cursor todoCursor = Item.fetchResultCursor();
+        todoAdapter = new TodoCursorAdapter(this, todoCursor);
+        lvItems.setAdapter(todoAdapter);
 
         setUpListViewListener();
         setUpListEditListener();
@@ -44,9 +39,12 @@ public class MainActivity extends ActionBarActivity {
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                items.remove(position);
-                itemsAdapter.notifyDataSetChanged();
-                writeItems();
+                Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+                int itemId = cursor.getInt(cursor.getColumnIndexOrThrow("Id"));
+                Item item = Item.load(Item.class, itemId);
+                item.delete();
+                todoAdapter.changeCursor(Item.fetchResultCursor());
+                Toast.makeText(getApplicationContext(), "Item Deleted", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -57,55 +55,53 @@ public class MainActivity extends ActionBarActivity {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(MainActivity.this, EditItemActivity.class);
-                i.putExtra("item", parent.getItemAtPosition(position).toString());
-                i.putExtra("position", position);
-                startActivityForResult(i, REQUEST_CODE);
+                Cursor cursor = (Cursor) parent.getAdapter().getItem(position);
+                int itemId = cursor.getInt(cursor.getColumnIndexOrThrow("Id"));
+                selectedItem = Item.load(Item.class, itemId);
+                showEditDialog();
             }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // REQUEST_CODE is defined above
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            // Extract name value from result extras
-            String name = data.getExtras().getString("item");
-            int position = data.getExtras().getInt("position", 0);
-            items.set(position, name);
-            itemsAdapter.notifyDataSetChanged();
-            writeItems();
-            // Toast the name to display temporarily on screen
-            Toast.makeText(this, "Item updated", Toast.LENGTH_SHORT).show();
-        }
+    public Item getSelectedItem() {
+        return selectedItem;
     }
 
-    private void readItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try{
-            items =  new ArrayList<String>(FileUtils.readLines(todoFile));
-        }catch (IOException e){
-            items = new ArrayList<String>();
-        }
-    }
-
-    private void writeItems()
+    public void onAddItem(View v)
     {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try{
-            FileUtils.writeLines(todoFile, items);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        selectedItem = null;
+        showAddDialog();
     }
 
-    public void onAddItem(View v) {
-        EditText etNewItem = (EditText)findViewById(R.id.etNewItem);
-        itemsAdapter.add(etNewItem.getText().toString());
-        etNewItem.setText("");
-        writeItems();
+    private void showAddDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        AddEditItemDialog addEditItemDialog = AddEditItemDialog.newInstance("Add Todo Item");
+        addEditItemDialog.show(fm, "fragment_add_edit_item");
+    }
+
+    private void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        AddEditItemDialog addEditItemDialog = AddEditItemDialog.newInstance("Edit Todo Item");
+        addEditItemDialog.show(fm, "fragment_add_edit_item");
+    }
+
+    @Override
+    public void onFinishAddEditDialog(String itemName, String priority) {
+        if(selectedItem==null)
+        {
+            Item newItem = new Item();
+            newItem.name = itemName;
+            newItem.priority = priority;
+            newItem.save();
+        }
+        else
+        {
+            selectedItem.name =  itemName;
+            selectedItem.priority = priority;
+            selectedItem.save();
+        }
+
+        todoAdapter.changeCursor(Item.fetchResultCursor());
     }
 
     @Override
@@ -129,4 +125,5 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

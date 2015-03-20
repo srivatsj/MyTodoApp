@@ -14,6 +14,15 @@ Completed user stories:
  Required: User can edit a todo item by clicking on the item. This was done by launching a new intent and passing data to launched intent and returning data result to parent activity.
 
  Optional: Used string.xml to store 'edit item below' label value
+ 
+ Optional: Persist the todo items into SQLite using ActiveAndroid
+ 
+ Optional: Improve style of the todo items in the list using a custom cursor adapter
+ 
+ Optional: Used a DialogFragment for editing and adding items
+ 
+ Optional: Add support for selecting the priority of each todo item (and display in listview item)
+ 
 
 Walkthrough of all user stories:
 
