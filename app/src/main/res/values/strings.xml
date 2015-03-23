@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">MyTodoApp</string>
+    <string name="app_name">MyTodoDiary</string>
 
     <string name="edit_text">Edit Item below!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">LogOut</string>
     <string name="title_activity_edit_item">Edit Item</string>
+    <string name="title_activity_login">My Todo Diary</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="app_id">993513677328878</string>
 </resources>

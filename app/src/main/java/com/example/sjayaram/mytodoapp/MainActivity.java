@@ -1,6 +1,9 @@
 package com.example.sjayaram.mytodoapp;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.example.sjayaram.mytodoapp.Models.Item;
+import com.facebook.Session;
 
 import java.util.Date;
 
@@ -26,6 +30,13 @@ public class MainActivity extends ActionBarActivity implements AddEditItemDialog
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String userName = getIntent().getStringExtra("userName");
+
+        Object actionBar = getSupportActionBar();
+        android.support.v7.internal.app.WindowDecorActionBar bar = (android.support.v7.internal.app.WindowDecorActionBar) actionBar;
+
+        bar.setTitle("Welcome " + userName);
 
         lvItems = (ListView)findViewById(R.id.lvItems);
 
@@ -126,8 +137,26 @@ public class MainActivity extends ActionBarActivity implements AddEditItemDialog
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.logout) {
+            logout();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logout(){
+        // find the active session which can only be facebook in my app
+        Session session = Session.getActiveSession();
+        // run the closeAndClearTokenInformation which does the following
+        // DOCS : Closes the local in-memory Session object and clears any persistent
+        // cache related to the Session.
+        session.closeAndClearTokenInformation();
+        // return the user to the login screen
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        // make sure the user can not access the page after he/she is logged out
+        // clear the activity stack
+        finish();
     }
 
 }

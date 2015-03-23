@@ -21,9 +21,11 @@ Completed user stories:
  
  Optional: Used a DialogFragment for editing and adding items
  
- Optional: Add support for selecting the priority of each todo item (and display in listview item)
+ Optional: Add support for selecting the priority of each todo item
  
  Optional: Added date picker for due dates and sorted list based on due dates and display in listview item
+ 
+ Optional: Added Facebook login and logout using facebook-android SDK
  
 
 Walkthrough of all user stories:
