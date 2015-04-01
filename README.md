@@ -27,6 +27,8 @@ Completed user stories:
  
  Optional: Added Facebook login and logout using facebook-android SDK
  
+ Optional: Added Add icon to action bar and changed background color of Main activity
+ 
 
 Walkthrough of all user stories:
 
