@@ -1,12 +1,13 @@
 package com.example.sjayaram.mytodoapp;
 
-import android.app.ActionBar;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Build;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +81,7 @@ public class MainActivity extends ActionBarActivity implements AddEditItemDialog
         return selectedItem;
     }
 
-    public void onAddItem(View v)
+    public void onAddItem()
     {
         selectedItem = null;
         showAddDialog();
@@ -135,6 +136,7 @@ public class MainActivity extends ActionBarActivity implements AddEditItemDialog
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            onAddItem();
             return true;
         }
         if (id == R.id.logout) {
