@@ -29,7 +29,14 @@ Completed user stories:
  
  Optional: Added Add icon to action bar and changed background color of Main activity
  
+ Optional: Saving todo items to mongodb using Restful Express api build on node server. 
+ 
+ Optional: Registering the application with GCM servers asynchronously and storing the deviceId to mongodb.
 
+ Optional: Node cron job to send gcm message about the todo item due for the current date.
+ 
+ Optional: GcmBroadcastReceiver to listen for messages from GCM and display it as a notification on the device.
+ 
 Walkthrough of all user stories:
 
 
