@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.sjayaram.mytodoapp.Models.Item;
+import com.example.sjayaram.mytodoapp.Models.JsonItem;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -76,7 +77,7 @@ public class AddEditItemDialog extends DialogFragment {
 
 
         MainActivity activity = (MainActivity) getActivity();
-        Item item = activity.getSelectedItem();
+        JsonItem item = activity.getSelectedItem();
 
         if(item != null)
         {

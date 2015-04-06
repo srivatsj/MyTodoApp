@@ -27,7 +27,7 @@ import java.util.List;
 public class LoginActivity extends Activity {
 
     private LoginButton loginBtn;
-    private static final List<String> PERMISSIONS = Arrays.asList("publish_actions", "user_events");
+    private static final List<String> PERMISSIONS = Arrays.asList("public_profile");
     private UiLifecycleHelper uiHelper;
 
     @Override
@@ -46,6 +46,7 @@ public class LoginActivity extends Activity {
                 if (user != null) {
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     i.putExtra("userName", user.getFirstName() + " " + user.getLastName());
+                    i.putExtra("userId", user.getId());
                     startActivity(i); // brings up the second activity
                     //userName.setText("Hello, " + user.getName());
 

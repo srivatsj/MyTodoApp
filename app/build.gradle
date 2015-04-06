@@ -22,6 +22,7 @@ android {
 repositories {
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+
 }
 
 dependencies {
@@ -30,4 +31,6 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.facebook.android:facebook-android-sdk:3.21.1'
+    compile 'com.google.android.gms:play-services:6.5.87'
+
 }
