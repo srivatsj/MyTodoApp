@@ -1,7 +1,7 @@
 # MyTodoApp
 This is an Android demo todo application.
 
-Time spent: 4 hours spent in total
+Time spent: 24 hours spent in total
 
 Completed user stories:
 
